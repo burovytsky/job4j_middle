@@ -11,8 +11,9 @@ public class ConsoleProgress implements Runnable {
     @Override
     public void run() {
         String load = "\\";
-        try {
-            while (!Thread.currentThread().isInterrupted()) {
+
+        while (!Thread.currentThread().isInterrupted()) {
+            try {
                 System.out.print("\r load... " + load);
                 load = switch (load) {
                     case "\\" -> "|";
@@ -21,9 +22,10 @@ public class ConsoleProgress implements Runnable {
                     default -> "\\";
                 };
                 Thread.sleep(500);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                e.printStackTrace();
             }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         }
 
     }
