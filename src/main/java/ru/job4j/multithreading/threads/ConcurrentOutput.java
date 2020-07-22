@@ -1,4 +1,4 @@
-package ru.job4j.multithreading;
+package ru.job4j.multithreading.threads;
 
 public class ConcurrentOutput {
     public static void main(String[] args) {
