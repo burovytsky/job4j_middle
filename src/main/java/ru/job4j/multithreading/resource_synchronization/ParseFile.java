@@ -3,61 +3,7 @@ package ru.job4j.multithreading.resource_synchronization;
 import java.io.*;
 
 public class ParseFile {
-    public static void main(String[] args) {
-        ParseFile parseFile = new ParseFile();
-        File file = new File("C:\\Users\\cns\\IdeaProjects\\job4j_middle\\Readme.md");
-        parseFile.setFile(file);
-        Thread thread1 = new Thread(() -> {
-            try {
-                parseFile.saveContent(parseFile.getContent());
-                System.out.println(parseFile.getFile().length());
-                System.out.println("--------------------------------");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-        Thread thread2 = new Thread(() -> {
-            try {
-                parseFile.saveContent(parseFile.getContent());
-                System.out.println(parseFile.getFile().length());
-                System.out.println("--------------------------------");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-        Thread thread3 = new Thread(() -> {
-            try {
-                parseFile.saveContent(parseFile.getContent());
-                System.out.println(parseFile.getFile().length());
-                System.out.println("--------------------------------");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-        Thread thread4 = new Thread(() -> {
-            try {
-                parseFile.saveContent(parseFile.getContent());
-                System.out.println(parseFile.getFile().length());
-                System.out.println("--------------------------------");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-        Thread thread5 = new Thread(() -> {
-            try {
-                parseFile.saveContent(parseFile.getContent());
-                System.out.println(parseFile.getFile().length());
-                System.out.println("--------------------------------");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-        thread1.start();
-        thread2.start();
-        thread3.start();
-        thread4.start();
-        thread5.start();
-    }
+
     private File file;
 
     public synchronized void setFile(File f) {
