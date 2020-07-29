@@ -5,8 +5,6 @@ import net.jcip.annotations.ThreadSafe;
 
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
 
 @ThreadSafe
 public class SimpleBlockingQueue<T> {
@@ -19,7 +17,7 @@ public class SimpleBlockingQueue<T> {
     }
 
     public synchronized void offer(T value) {
-        while (queue.size() >= limit){
+        while (queue.size() == limit) {
             try {
                 System.out.println("max elements in queue");
                 this.wait();
@@ -28,12 +26,12 @@ public class SimpleBlockingQueue<T> {
             }
         }
         queue.offer(value);
-        this.notifyAll();
-        System.out.println("all threads woke up");
+        System.out.println("added  " + value);
+        notify();
     }
 
     public synchronized T poll() {
-        while (queue.size() < 1) {
+        while (queue.size() == 0) {
             try {
                 System.out.println("queue is empty");
                 this.wait();
@@ -41,16 +39,9 @@ public class SimpleBlockingQueue<T> {
                 e.printStackTrace();
             }
         }
-        System.out.println("queue is not empty. return element");
-        this.notifyAll();
-        return queue.poll();
-    }
-
-    public synchronized int getSize(){
-        return queue.size();
-    }
-
-    public synchronized int getMaxSize(){
-        return this.limit;
+        T rs = queue.poll();
+        System.out.println("remove " + rs);
+        notify();
+        return rs;
     }
 }
