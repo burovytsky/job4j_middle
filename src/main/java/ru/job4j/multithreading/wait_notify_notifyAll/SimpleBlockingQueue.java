@@ -16,32 +16,28 @@ public class SimpleBlockingQueue<T> {
         this.limit = limit;
     }
 
-    public synchronized void offer(T value) {
+    public synchronized void offer(T value) throws InterruptedException {
         while (queue.size() == limit) {
-            try {
-                System.out.println("max elements in queue");
-                this.wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            System.out.println("max elements in queue");
+            wait();
         }
         queue.offer(value);
         System.out.println("added  " + value);
         notify();
     }
 
-    public synchronized T poll() {
+    public synchronized T poll() throws InterruptedException {
         while (queue.size() == 0) {
-            try {
-                System.out.println("queue is empty");
-                this.wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            System.out.println("queue is empty");
+            this.wait();
         }
         T rs = queue.poll();
         System.out.println("remove " + rs);
         notify();
         return rs;
+    }
+
+    public synchronized boolean isEmpty() {
+        return queue.isEmpty();
     }
 }

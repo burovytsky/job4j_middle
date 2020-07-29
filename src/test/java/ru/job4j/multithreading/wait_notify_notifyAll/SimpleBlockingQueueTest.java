@@ -10,7 +10,11 @@ public class SimpleBlockingQueueTest {
         Thread consumer = new Thread(() -> {
             System.out.println(Thread.currentThread().getName() + " started");
             for (int i = 0; i < 4; i++) {
-                queue.poll();
+                try {
+                    queue.poll();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
@@ -22,7 +26,11 @@ public class SimpleBlockingQueueTest {
             System.out.println(Thread.currentThread().getName() + " started");
 
             for (int i = 0; i < 4; i++) {
-                queue.offer(10);
+                try {
+                    queue.offer(10);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 try {
                     Thread.sleep(200);
                 } catch (InterruptedException e) {
