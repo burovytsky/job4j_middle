@@ -32,13 +32,4 @@ public class ThreadPool {
             thread.interrupt();
         }
     }
-
-    public SimpleBlockingQueue<Runnable> getTasks(){
-        return tasks;
-    }
-
-    public List<Thread> getThreads() {
-        return threads;
-    }
-
 }
